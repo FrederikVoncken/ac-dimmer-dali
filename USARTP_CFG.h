@@ -1,0 +1,15 @@
+/*
+ * USARTP_CFG.h
+ */
+
+#ifndef USARTP_CFG_H_
+#define USARTP_CFG_H_
+
+#define USARTP_CFG_RX_BUFFER_SIZE 256
+#define USARTP_CFG_TX_BUFFER_SIZE 256
+
+//#define DEBUG_USARTP_TEST
+//#define DEBUG_USARTP_DIRECT_LOOPBACK
+//#define DEBUG_USARTP_LOOPBACK
+
+#endif // USARTP_CFG_H_
