@@ -1,10 +1,16 @@
 # AC-Dimmer - DALI
-
 An AC dimmer, that uses the DALI (Digital Addressable Lighting Interface) dimming interpretation curve. See also https://en.wikipedia.org/wiki/Digital_Addressable_Lighting_Interface for more information about the DALI standard.
 As a remark this implementation is NOT DALI approved and or certified, and also does not imply to be so.
-
 ***
-
+With this implementation you can:
+* Dim (direct set) a light using a DALI curve range 0 to 255, 0 is Off, 254 is Full, 255 is Stop
+* Do a fade from Current to X (DALI curve + interpolated values between DALI values)
+* Fade with time or steps
+* Optimize DALI curve range by calibration of lowest and highest value
+* Save, Load, Load scratch defaults
+* 50 and 60 Hz possible
+* Can connect 2 triac AC-dimmers, working independantly
+***
 “schematic” of the dimmer.
 
 ![Schematic](Images/Electrical.jpg)
@@ -13,14 +19,11 @@ Left, an ATmega328P for precise non-interrupted dimming, communicating with at t
 ATmega328P and ESP32 communicate with each other via a slow (no need for high speed) serial communication and because the ATmega328P works on 5V and the ESP32 on 3.3V, there is a level converter
 
 Implementation (will make a pcb in the future).
+
 ![DimmerBox](Images/DimmerBox.jpg)
-
 ***
-
 This repository is only about the triac AC dimmer controller with ATmega328P, in a future repository I will add the ESP32 part with MQTT and WIFI connection.
-
 ***
-
 Design goals:
 * Priority on capturing the AC zero crossing and creation of triac dimmer pulses.
 * Command control is done via a serial port at a low baud rate of 9600 baud.
@@ -36,7 +39,6 @@ Design goals:
 * It is possible to directly set the dimming (timer value) of the dimmer, manly for calibration purposes.
   *	This way the minimum and maximum value for the dimmer can be set (not all light sources do have the same minimum and maximum for ‘off’ and ‘full’)
   * Minimum and maximum value can be saved and will be used to project Dimming DALI settings from 0 (minimum calibrated value) to 254 (maximum calibrated value)
-
 ***
 # DALI curve
 Y = 10^3*(x−254)/253
@@ -47,7 +49,6 @@ Light-bulbs / LEDs behave in a non-linear way.
 In essence you want to have a higher resolition at low light situations
 
 Ideal for this is the DALI curve.
-
 ***
 # Commands:
 
